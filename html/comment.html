@@ -4,19 +4,37 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
 $(document).ready(function(){
-    //var url = "http://52.10.174.38/comment";
+    var url = '';
+    function isSecure()
+    {
+	if(location.protocol == 'https:'){
+		url = "https://52.10.174.38/comment";
+	}else{
+		url = "http://52.10.174.38/comment";
+	}
+	console.log('secure called');
+    }
+	isSecure();
     $("#serialize").click(function(){
         var myobj = {Name:$("#Name").val(),Comment:$("#Comment").val()};
         var jobj = JSON.stringify(myobj);
         $("#json").text(jobj);
-	var url = "http://52.10.174.38/comment";
-        $.post(url,jobj,function(data,textStatus) {
-          $("#done").append(textStatus);
-		
+	//var url = "http://52.10.174.38/comment";
+	console.log('before ajax')
+	jQuery.ajax ({
+            url: url,
+            type: "POST",
+            data: jobj,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function(){
+              $("#done").append("Success");
+		console.log('in ajax')
+            }
         });
-    });
+});
     $("#getComments").click(function(){
-    	var url = "http://52.10.174.38/comments";
+    	//var url = "http://52.10.174.38/comment";
 	console.log('begin');
 	$.getJSON(url,function(data) {
         var everything;
