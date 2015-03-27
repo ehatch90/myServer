@@ -15,14 +15,15 @@ router.get('/posts', function(req, res, next) {
   });
 });
 router.get('/posts/:post', function(req, res, next) {
-  req.post.populate('comments', function(err, post) {
-    res.json(post);
+  req.post.populate('comments', function(err, post) { 
+  res.json(post);
   });
 });
 router.post('/posts', function(req, res, next) {
   var post = new Post(req.body);
   post.save(function(err, post){
-  if(err){ return next(err); }
+  if(err){ console.log('gfgnijgn')
+	return next(err); }
     res.json(post);
   });
 });
